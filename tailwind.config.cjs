@@ -6,6 +6,8 @@ module.exports = {
     colors: {
       'tarantino-bg': '#30272C',
       blue: '#1e3a8a',
+      yellow: '#facc15',
+      red: '#dc2626',
     },
   },
   plugins: [],

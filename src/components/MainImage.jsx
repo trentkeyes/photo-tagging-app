@@ -2,6 +2,7 @@ import TarantinoArt from '../assets/tarantino-bangzheng-du.jpg';
 import { Character } from './Character';
 import { getCharacterCoordinates } from '../firebaseCalls';
 import { useState } from 'react';
+import { Target } from './Target';
 
 export const MainImage = () => {
   const [userCoords, setUserCoords] = useState();
@@ -30,23 +31,11 @@ export const MainImage = () => {
     console.log(correct);
   };
 
+  console.log(userCoords);
+
   return (
-    <div className="mx-auto w-max cursor-pointer">
-      {/* <Character
-          name={'Sharon Tate'}
-          coords={'660,265,40'}
-          handleClick={handleClick}
-        />
-        <Character
-          name={'The Gimp'}
-          coords={'1263,143,40'}
-          handleClick={handleClick}
-        />
-        <Character
-          name={'Hans Landa'}
-          coords={'209,715,40'}
-          handleClick={handleClick}
-        /> */}
+    <div className="mx-auto w-max cursor-pointer relative">
+      {userCoords && <Target userCoords={userCoords} />}
       <img
         useMap="#clickableImg"
         src={TarantinoArt}

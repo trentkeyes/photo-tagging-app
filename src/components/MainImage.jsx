@@ -1,36 +1,38 @@
 import TarantinoArt from '../assets/tarantino-bangzheng-du.jpg';
 import { Character } from './Character';
+import { getCharacterCoordinates } from '../firebaseCalls';
+import { useState } from 'react';
 
 export const MainImage = () => {
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(`You have clicked on ${e.target.id}`, e.target);
+  const [userCoords, setUserCoords] = useState();
+  const [userChoice, setUserChoice] = useState('sharonTate');
+
+  const getUserCoordinates = async (e) => {
+    const boundary = e.target.getBoundingClientRect();
+    const x = e.clientX - boundary.left;
+    const y = e.clientY - boundary.top;
+
+    console.log('user', x, y);
+    setUserCoords({ x, y });
+    const data = await getCharacterCoordinates();
+    const correct = data[userChoice];
+    console.log('correct tate', correct.x, correct.y);
+    if (Math.abs(x - correct.x) < 20) {
+      console.log('good job');
+    } else {
+      console.log('nope');
+    }
   };
 
-  const handleImg = (e) => {
-    console.log(e.target.offsetX);
-  };
+  const checkCoordinates = async (e) => {
+    const user = getUserCoordinates(e);
 
-  const handleMouseMove = (e) => {
-    console.log(
-      'ScreenX:',
-      e.screenX,
-      'ScreenY:',
-      e.screenY,
-      'ClientX',
-      e.clientX,
-      'ClientY:',
-      e.clientY,
-      'OffsetX',
-      e.pageX,
-      e.pageY
-    );
+    console.log(correct);
   };
 
   return (
-    <div className="mx-auto w-max">
-      <map name="clickableImg">
-        <Character
+    <div className="mx-auto w-max cursor-pointer">
+      {/* <Character
           name={'Sharon Tate'}
           coords={'660,265,40'}
           handleClick={handleClick}
@@ -44,14 +46,12 @@ export const MainImage = () => {
           name={'Hans Landa'}
           coords={'209,715,40'}
           handleClick={handleClick}
-        />
-      </map>
-
+        /> */}
       <img
         useMap="#clickableImg"
         src={TarantinoArt}
         alt="Where's Waldo style art with scenes from Tarantino films"
-        onMouseMove={handleMouseMove}
+        onClick={getUserCoordinates}
       />
     </div>
   );

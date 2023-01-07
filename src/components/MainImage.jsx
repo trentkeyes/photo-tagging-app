@@ -7,31 +7,44 @@ import { Target } from './Target';
 export const MainImage = () => {
   const [userCoords, setUserCoords] = useState();
   const [userChoice, setUserChoice] = useState('sharonTate');
+  const [characs, setCharacs] = useState({
+    1: {
+      name: 'Sharon Tate',
+      found: false,
+    },
+    2: {
+      name: 'The Gimp',
+      found: false,
+    },
+    3: {
+      name: 'Hans Lanza',
+      found: false,
+    },
+  });
 
-  const getUserCoordinates = async (e) => {
-    const boundary = e.target.getBoundingClientRect();
-    const x = e.clientX - boundary.left;
-    const y = e.clientY - boundary.top;
-
-    console.log('user', x, y);
-    setUserCoords({ x, y });
+  const checkCoordinates = async (user) => {
     const data = await getCharacterCoordinates();
-    const correct = data[userChoice];
-    console.log('correct tate', correct.x, correct.y);
-    if (Math.abs(x - correct.x) < 20) {
-      console.log('good job');
+    const correct = data['sharonTate'];
+    if (Math.abs(user.x - correct.x) < 20) {
+      return 'Found!';
     } else {
-      console.log('nope');
+      return 'Nope!';
     }
   };
 
-  const checkCoordinates = async (e) => {
-    const user = getUserCoordinates(e);
-
-    console.log(correct);
+  const getUserCoordinates = (e) => {
+    const boundary = e.target.getBoundingClientRect();
+    const x = e.clientX - boundary.left;
+    const y = e.clientY - boundary.top;
+    return { x, y };
   };
 
-  console.log(userCoords);
+  const play = async (e) => {
+    const user = getUserCoordinates(e);
+    const result = await checkCoordinates(user);
+    setUserCoords({ x: user.x, y: user.y });
+    console.log(result);
+  };
 
   return (
     <div className="mx-auto w-max cursor-pointer relative">
@@ -40,7 +53,7 @@ export const MainImage = () => {
         useMap="#clickableImg"
         src={TarantinoArt}
         alt="Where's Waldo style art with scenes from Tarantino films"
-        onClick={getUserCoordinates}
+        onClick={play}
       />
     </div>
   );

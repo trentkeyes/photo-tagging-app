@@ -1,11 +1,9 @@
-import { Navbar } from './components/Navbar';
-import { Home } from './pages/home';
+import { Game } from './pages/Game';
 
 function App() {
   return (
     <div className="bg-blue">
-      <Navbar />
-      <Home />
+      <Game />
     </div>
   );
 }

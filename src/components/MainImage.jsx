@@ -7,32 +7,22 @@ import { CharacterMenu } from './CharacterMenu';
 
 export const MainImage = () => {
   const [userCoords, setUserCoords] = useState();
-  const [userChoice, setUserChoice] = useState('sharonTate');
-  const [characs, setCharacs] = useState({
-    1: {
-      name: 'Sharon Tate',
-      found: false,
-    },
-    2: {
-      name: 'The Gimp',
-      found: false,
-    },
-    3: {
-      name: 'Hans Lanza',
-      found: false,
-    },
+  const [foundCharacs, setFoundCharacs] = useState({
+    'Sharon Tate': false,
+    'Hans Landa': false,
+    'The Gimp': false,
   });
 
-  const checkCoordinates = async (user) => {
+  const checkCoordinates = async (charac) => {
     const data = await getCharacterCoordinates();
-    const correct = data['sharonTate'];
+    const correct = data[charac];
     if (
-      Math.abs(user.x - correct.x) < 40 &&
-      Math.abs(user.y - correct.y) < 40
+      Math.abs(userCoords.x - correct.x) < 40 &&
+      Math.abs(userCoords.y - correct.y) < 40
     ) {
-      return 'Found!';
+      return true;
     } else {
-      return 'Nope!';
+      return false;
     }
   };
 
@@ -44,18 +34,34 @@ export const MainImage = () => {
     return { x, y };
   };
 
-  const play = async (e) => {
-    const user = getUserCoordinates(e);
-    setUserCoords({ x: user.x, y: user.y });
-    const result = await checkCoordinates(user);
+  const play = async (charac) => {
+    const result = await checkCoordinates(charac);
 
     console.log(result);
+    // mark character as found
+    if (result) {
+      setFoundCharacs((prev) => {
+        return {
+          ...prev,
+          [charac]: true,
+        };
+      });
+      if (Object.values(foundCharacs).every((val) => val)) {
+        console.log('You win!');
+      }
+    }
   };
 
   return (
     <div className="mx-auto w-max cursor-pointer relative">
       {userCoords && <Target userCoords={userCoords} />}
-      {userCoords && <CharacterMenu userCoords={userCoords} />}
+      {userCoords && (
+        <CharacterMenu
+          userCoords={userCoords}
+          play={play}
+          foundCharacs={foundCharacs}
+        />
+      )}
       <img
         useMap="#clickableImg"
         src={TarantinoArt}

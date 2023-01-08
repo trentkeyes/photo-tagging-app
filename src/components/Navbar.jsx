@@ -6,8 +6,8 @@ export const Navbar = () => {
       <h1 className="text-3xl ml-2">Find the Characters</h1>
       <div className="flex gap-2 mx-auto">
         <NavCharacter name={'Sharon Tate'} />
-        <NavCharacter name={'The Gimp'} />
-        <NavCharacter name={'Hans Landa'} />
+        <NavCharacter name={'Hans Landa'} /><NavCharacter name={'The Gimp'} />
+        
       </div>
     </nav>
   );

@@ -1,6 +1,19 @@
 import { CharacterMenuItem } from './CharacterMenuItem';
 
-const CharacterMenu = ({ userCoords, play, foundCharacs }) => {
+export const CharacterMenu = ({ userCoords, play, foundCharacs }) => {
+  const characs = Object.keys(foundCharacs);
+
+  const charMenuItems = characs.map((item) => {
+    return (
+      <CharacterMenuItem
+        key={item}
+        name={item}
+        play={play}
+        found={foundCharacs[item]}
+      />
+    );
+  });
+
   return (
     <div
       style={{
@@ -9,23 +22,7 @@ const CharacterMenu = ({ userCoords, play, foundCharacs }) => {
       }}
       className="absolute bg-blue bg-opacity-90 rounded"
     >
-      <CharacterMenuItem
-        name={'Sharon Tate'}
-        play={play}
-        found={foundCharacs['Sharon Tate']}
-      />
-      <CharacterMenuItem
-        name={'Hans Landa'}
-        play={play}
-        found={foundCharacs['Hans Landa']}
-      />
-      <CharacterMenuItem
-        name={'The Gimp'}
-        play={play}
-        found={foundCharacs['The Gimp']}
-      />
+      {charMenuItems}
     </div>
   );
 };
-
-export { CharacterMenu };

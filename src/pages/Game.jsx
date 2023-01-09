@@ -3,6 +3,7 @@ import { MainImage } from '../components/MainImage';
 import { Navbar } from '../components/Navbar';
 import { getCharacterCoordinates } from '../firebaseCalls';
 import { useStopwatch } from 'react-timer-hook';
+import { WinModal } from '../components/WinModal';
 
 export const Game = () => {
   const { seconds, minutes, start, pause } = useStopwatch({ autoStart: true });
@@ -17,6 +18,7 @@ export const Game = () => {
 
   const [gameOver, setGameOver] = useState(false);
   const [winTime, setWinTime] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (!gameOver) {
@@ -58,6 +60,7 @@ export const Game = () => {
       pause();
       setGameOver(true);
       setWinTime({ minutes, seconds });
+      setIsOpen(true);
     }
   };
 
@@ -73,6 +76,7 @@ export const Game = () => {
         checkCoordinates={checkCoordinates}
         play={play}
       />
+      <WinModal modalIsOpen={modalIsOpen} />
     </div>
   );
 };

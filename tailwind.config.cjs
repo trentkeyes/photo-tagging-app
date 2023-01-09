@@ -5,9 +5,10 @@ module.exports = {
     extend: {},
     colors: {
       'tarantino-bg': '#30272C',
-      blue: '#1e3a8a',
+      blue: '#2563eb',
       yellow: '#facc15',
       red: '#dc2626',
+      white: '#f8fafc',
     },
   },
   plugins: [],

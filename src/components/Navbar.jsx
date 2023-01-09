@@ -7,7 +7,7 @@ import gimp from '../assets/gimp.png';
 export const Navbar = ({ winTime }) => {
   return (
     <nav className="">
-      <div className="max-w-[1400px] mx-auto bg-blue py-2 flex justify-between items-center">
+      <div className="max-w-[1360px] mx-auto bg-blue px-4 py-2 flex justify-between items-center shadow-md">
         <h1 className="text-3xl font-bold text-white bg-tarantino-bg bg-opacity-60 rounded p-2">
           Find the characters!
         </h1>

@@ -76,7 +76,7 @@ export const Game = () => {
         checkCoordinates={checkCoordinates}
         play={play}
       />
-      <WinModal modalIsOpen={modalIsOpen} />
+      <WinModal modalIsOpen={modalIsOpen} winTime={winTime} />
     </div>
   );
 };

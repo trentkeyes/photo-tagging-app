@@ -16,7 +16,7 @@ export const Timer = ({ winTime }) => {
   );
 
   return (
-    <div className="py-1 px-2 text-4xl text-white bg-tarantino-bg bg-opacity-60 rounded">
+    <div className="py-1 px-2 text-4xl text-white bg-tarantino-bg bg-opacity-60 rounded shadow-md">
       {timer}
     </div>
   );

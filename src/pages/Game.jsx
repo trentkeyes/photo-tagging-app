@@ -83,13 +83,15 @@ export const Game = () => {
 
   return (
     <div className="bg-blue">
-      <Navbar winTime={winTime} />
+      <Navbar
+        foundCharacs={foundCharacs}
+        winTime={winTime}
+        setLeaderboardOpen={setLeaderboardOpen}
+      />
       <MainImage
         foundCharacs={foundCharacs}
-        setFoundCharacs={setFoundCharacs}
         userCoords={userCoords}
         setUserCoords={setUserCoords}
-        checkCoordinates={checkCoordinates}
         play={play}
       />
       <WinModal

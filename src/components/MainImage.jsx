@@ -1,16 +1,11 @@
 import TarantinoArt from '../assets/tarantino-bangzheng-du.jpg';
-import { Character } from './Character';
-import { getCharacterCoordinates } from '../firebaseCalls';
-import { useState } from 'react';
 import { Target } from './Target';
 import { CharacterMenu } from './CharacterMenu';
 
 export const MainImage = ({
   foundCharacs,
-  setFoundCharacs,
   userCoords,
   setUserCoords,
-  checkCoordinates,
   play,
 }) => {
   const getUserCoordinates = (e) => {

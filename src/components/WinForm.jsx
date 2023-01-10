@@ -18,7 +18,12 @@ export const WinModal = ({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    addWinner({ input, mins, secs });
+    if (input === '') {
+      addWinner({ input: 'Anonymous', mins, secs });
+    } else {
+      addWinner({ input, mins, secs });
+    }
+
     closeWinForm();
     setLeaderboardOpen(true);
   };

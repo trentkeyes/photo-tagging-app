@@ -9,6 +9,7 @@ module.exports = {
       yellow: '#facc15',
       red: '#dc2626',
       white: '#f8fafc',
+      slate: '#475569',
     },
   },
   plugins: [],

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { MainImage } from '../components/MainImage';
 import { Navbar } from '../components/Navbar';
-import { getCharacterCoordinates } from '../firebaseCalls';
+import { getCharacterCoordinates, getLeaderboard } from '../firebaseCalls';
 import { useStopwatch } from 'react-timer-hook';
-import { WinModal } from '../components/WinModal';
+import { WinModal } from '../components/WinForm';
+import { Leaderboard } from '../components/Leaderboard';
 
 export const Game = () => {
-  const { seconds, minutes, start, pause } = useStopwatch({ autoStart: true });
-
+  const { seconds, minutes, pause } = useStopwatch({ autoStart: true });
   const [foundCharacs, setFoundCharacs] = useState({
     'Sharon Tate': false,
     'Hans Landa': false,
@@ -15,16 +15,21 @@ export const Game = () => {
   });
 
   const [userCoords, setUserCoords] = useState();
-
   const [gameOver, setGameOver] = useState(false);
   const [winTime, setWinTime] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [leaderboard, setLeaderboard] = useState();
+  const [winFormIsOpen, setWinFormOpen] = useState(false);
+  const [leaderboardIsOpen, setLeaderboardOpen] = useState(false);
 
   useEffect(() => {
     if (!gameOver) {
       checkForWin();
     }
   }, [foundCharacs]);
+
+  useEffect(() => {
+    getLeaderboard({ setLeaderboard });
+  }, []);
 
   const checkCoordinates = async (charac) => {
     const data = await getCharacterCoordinates();
@@ -41,7 +46,6 @@ export const Game = () => {
 
   const play = async (charac) => {
     const result = await checkCoordinates(charac);
-    console.log(result);
     // mark character as found
     if (result) {
       setFoundCharacs((prev) => {
@@ -57,14 +61,26 @@ export const Game = () => {
 
   const checkForWin = () => {
     if (Object.values(foundCharacs).every((val) => val)) {
-      pause();
-      setGameOver(true);
-      setWinTime({ minutes, seconds });
-      setIsOpen(true);
+      endGame();
     }
   };
 
-  const pauseTimer = (pauseFunc) => {};
+  const endGame = () => {
+    pause();
+    setGameOver(true);
+    setWinTime({ minutes, seconds });
+    setWinFormOpen(true);
+  };
+
+  const closeWinForm = () => {
+    setWinFormOpen(false);
+    getLeaderboard({ setLeaderboard });
+  };
+
+  const closeLeaderboard = () => {
+    setLeaderboardOpen(false);
+  };
+
   return (
     <div className="bg-blue">
       <Navbar winTime={winTime} />
@@ -76,7 +92,19 @@ export const Game = () => {
         checkCoordinates={checkCoordinates}
         play={play}
       />
-      <WinModal modalIsOpen={modalIsOpen} winTime={winTime} />
+      <WinModal
+        winFormIsOpen={winFormIsOpen}
+        winTime={winTime}
+        closeWinForm={closeWinForm}
+        setLeaderboardOpen={setLeaderboardOpen}
+      />
+      {leaderboard && (
+        <Leaderboard
+          leaderboardIsOpen={leaderboardIsOpen}
+          closeLeaderboard={closeLeaderboard}
+          leaderboard={leaderboard}
+        />
+      )}
     </div>
   );
 };

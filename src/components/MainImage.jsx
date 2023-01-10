@@ -16,7 +16,7 @@ export const MainImage = ({
   };
 
   return (
-    <div className="bg-tarantino-bg">
+    <div className="bg-tarantino-bg mt-[107px]">
       <div className="mx-auto w-max cursor-pointer relative">
         {userCoords && <Target userCoords={userCoords} />}
         {userCoords && (

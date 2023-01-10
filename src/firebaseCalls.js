@@ -34,13 +34,17 @@ export const addWinner = async ({ input, mins, secs }) => {
 export const getLeaderboard = ({ setLeaderboard }) => {
   const leaderboardQuery = query(collection(db, 'leaderboard'));
   onSnapshot(leaderboardQuery, (querySnapshot) => {
-    setLeaderboard(
-      querySnapshot.docs.map((doc) => ({
-        seconds: doc.data().seconds,
-        name: doc.data().name,
-        minutes: doc.data().minutes,
-      }))
-    );
+    const data = querySnapshot.docs.map((doc) => ({
+      seconds: doc.data().seconds,
+      name: doc.data().name,
+      minutes: doc.data().minutes,
+    }));
+    const sorted = data.sort((a, b) => {
+      const aSeconds = Number(a.minutes) * 60 + Number(a.seconds);
+      const bseconds = Number(b.minutes) * 60 + Number(b.seconds);
+      return aSeconds - bseconds;
+    });
+    setLeaderboard(sorted);
   });
 };
 

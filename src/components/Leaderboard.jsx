@@ -23,6 +23,7 @@ export const Leaderboard = ({
   const leaderboardElements = leaderboard.map((el, index) => {
     return (
       <tr key={index}>
+        <td className="p-2 border border-slate">{index + 1}</td>
         <td className="p-2 border border-slate">{el.name}</td>
         <td className="p-2 border border-slate">
           {el.minutes}:{el.seconds}

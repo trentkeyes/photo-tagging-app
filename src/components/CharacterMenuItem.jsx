@@ -1,6 +1,6 @@
 import Tate from '../assets/tate.png';
 
-export const CharacterMenuItem = ({ name, img, play, found }) => {
+export const CharacterMenuItem = ({ name, play, found }) => {
   const classes = found ? 'line-through decoration-red' : 'font-bold';
 
   return (

@@ -56,6 +56,9 @@ export const Game = () => {
       });
       if (Object.values(foundCharacs).every((val) => val)) {
       }
+    } else {
+      // alert wrong character
+      alert('Nope. Try again!');
     }
   };
 

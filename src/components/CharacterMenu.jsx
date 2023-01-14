@@ -1,6 +1,7 @@
 import { CharacterMenuItem } from './CharacterMenuItem';
+import { FailMessage } from './FailMessage';
 
-export const CharacterMenu = ({ userCoords, play, foundCharacs }) => {
+export const CharacterMenu = ({ userCoords, play, foundCharacs, fail }) => {
   const characs = Object.keys(foundCharacs);
 
   const charMenuItems = characs.map((item) => {
@@ -20,9 +21,9 @@ export const CharacterMenu = ({ userCoords, play, foundCharacs }) => {
         top: `${userCoords.y - 60}px`,
         left: `${userCoords.x + 30}px`,
       }}
-      className="absolute bg-blue bg-opacity-90 rounded"
+      className="absolute"
     >
-      {charMenuItems}
+      <div className="bg-blue bg-opacity-90 rounded">{charMenuItems}</div>
     </div>
   );
 };
